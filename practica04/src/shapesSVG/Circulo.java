@@ -85,7 +85,7 @@ public class Circulo{
      * @return String - La representación del circulo en SVG
      */
     public String toSVG(){
-        String circ = "<circle cx='"+Double.toString(this.a.getX())+"' cy='"+Double.toString(this.a.getY())+"' r='"+Double.toString(this.radio)+"' fill='"+"pink"+"' stroke='"+"green"+"' stroke-width='"+"6.0"+"'/>";
+        String circ = "<circle cx='"+Double.toString(this.a.getX())+"' cy='"+Double.toString(this.a.getY())+"' r='"+Double.toString(this.radio)+"' fill='"+"pink"+"' stroke='"+"green"+"' stroke-width='"+"9.0"+"'/>";
         return circ;
     }
     /**
