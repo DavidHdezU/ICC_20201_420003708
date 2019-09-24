@@ -133,7 +133,7 @@ public class Triangulo{
     @Override
     public boolean equals(Object v) {
     Triangulo z = (Triangulo)v;
-    return a == z.getA() && b == z.getB() && c == z.getC(); 
+    return a.equals(z.getA()) && b.equals(z.getB()) && c.equals(z.getC()); 
 }
 
 }

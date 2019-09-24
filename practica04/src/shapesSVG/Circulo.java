@@ -105,6 +105,6 @@ public class Circulo{
     @Override
     public boolean equals(Object v) {
         Circulo z = (Circulo)v;
-        return a == z.getA() && radio == z.getRadio();
+        return a.equals(z.getA()) && radio == z.getRadio();
     }
 }

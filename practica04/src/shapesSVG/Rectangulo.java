@@ -118,7 +118,7 @@ public class Rectangulo{
     @Override
     public boolean equals(Object v) {
         Rectangulo z = (Rectangulo)v;
-        return a == z.getA() && alto == z.getAlto() && ancho == z.getAncho();
+        return a.equals(z.getA()) && alto == z.getAlto() && ancho == z.getAncho();
     }
 
 }

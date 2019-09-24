@@ -97,7 +97,7 @@ public class Linea{
     @Override
     public boolean equals(Object v) {
         Linea z = (Linea)v;
-        return a == z.getA() && b == z.getB() && longitud == z.getLongitud();
+        return a.equals(z.getA()) && b.equals(z.getB());
     }
 
 
