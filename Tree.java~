@@ -1,0 +1,64 @@
+public class Tree{
+    private String especie;
+    private String flor;
+    private String semilla;
+    private String fruta;
+    private int cosInd;
+
+public void setEspecie(String newEspecie){
+    this.especie = newEspecie;
+}
+public String getEspecie(){
+    return especie;
+}
+public void setFlor(String newFlor){
+    this.flor = newFlor;
+}
+public String getFlor(){
+    return flor;
+}
+public void setSemilla(String newSemilla){
+    this.semilla = newSemilla;
+}
+public String getSemilla(){
+    return semilla;
+}
+public void setFruta(String newFruta){
+    this.fruta = newFruta;
+}
+public String getFruta(){
+    return fruta;
+}
+public void setPrecio(int newPrecio){
+    this.cosInd = newPrecio;
+}
+public int getPrecio(){
+    return cosInd;
+}
+
+    public String toString(){
+	return "El árbol " + this.especie +" "+ this.fruta +" "+ this.semilla + ", y tiene un precio de " + this.cosInd + " por unidad.";
+    }
+    
+public static void main(String[] args){
+    
+    Tree a = new Tree();
+    a.setEspecie("Jacaranda mimosifolia");
+    a.setFlor("tiene flores");
+    a.setFruta("da frutos");
+    a.setSemilla("se reproduce por semilla");
+    a.setPrecio(Integer.parseInt("200"));
+
+    Tree b = new Tree();
+    b.setEspecie("Citrus sinensis");
+    b.setFlor("tiene flor");
+    b.setFruta("da fruta(naranja)");
+    b.setSemilla("se reproduce por semilla");
+    b.setPrecio(Integer.parseInt("250"));
+       
+    System.out.println(a.toString());
+    System.out.println("\n"+ b.toString());
+
+    
+}
+}
