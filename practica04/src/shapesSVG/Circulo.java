@@ -25,7 +25,7 @@ public class Circulo{
         this.a = a;
         this.radio = radio;
         this.diametro = (this.radio * 2);
-        this.area = ((this.radio * this.radio) * 3.141592);
+        this.area = ((this.radio * this.radio) * Math.PI);
     }
     /**
      * Constructor que recibe la coordenada en x y en y de un punto, y el radio
@@ -38,7 +38,7 @@ public class Circulo{
         this.a = v1;
         this.radio = radio;
         this.diametro = (this.radio * 2);
-        this.area = ((this.radio * this.radio) * 3.141592);
+        this.area = ((this.radio * this.radio) * Math.PI);
     }
     /**
      * Constructor que no recibe nada y que pone el centro del circulo en (100, 100) y asigna un radio = 50
@@ -48,7 +48,7 @@ public class Circulo{
         this.a = v1;
         this.radio = 50;
         this.diametro = (this.radio * 2);
-        this.area = ((this.radio * this.radio) * 3.141592);
+        this.area = ((this.radio * this.radio) * Math.PI);
     }
     /**
      * Creación de setters
