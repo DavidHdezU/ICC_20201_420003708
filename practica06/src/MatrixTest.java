@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Arrays;
+
 /**
  * Clase en donde se evaluara los metodos de la clase Matrix Imprimira en la
  * consola "<metodo_test> succesfull" si el metodo funciona correctamente
@@ -95,6 +97,10 @@ public class MatrixTest {
         }
     }
 
+    public static void moda() {
+
+    }
+
     public static void main(String[] args) {
         scalarProduct_test();
         add_test();
@@ -103,5 +109,6 @@ public class MatrixTest {
         getElement_test();
         determinant_test();
         equals_test();
+        transpon_test();
     }
 }

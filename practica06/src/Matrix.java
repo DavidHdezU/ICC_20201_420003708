@@ -116,6 +116,17 @@ public class Matrix {
         return 0;
     }
 
+    public Matrix transponMatrix() {
+        double[][] new2 = new double[matriz[0].length][matriz.length];
+        Matrix newMatrix = new Matrix(new2);
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                new2[j][i] = matriz[i][j];
+            }
+        }
+        return newMatrix;
+    }
+
     // function set element
     /**
      * Metodo que permite ingresar y remplazar un elemento en la posicion que
@@ -177,5 +188,6 @@ public class Matrix {
         }
         return true;
     }
+    
 
 }
