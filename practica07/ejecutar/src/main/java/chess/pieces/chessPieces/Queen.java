@@ -1,10 +1,11 @@
 package chess.pieces.chessPieces;
 
+import chess.items.Board;
 import chess.items.Position;
 import chess.pieces.ColorEnum;
+import chess.pieces.Piece;
 import chess.pieces.PiecesTypeEnum;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Queem class that extends Rook class
@@ -26,23 +27,60 @@ public class Queen extends Rook {
      * 
      * @return LinkedList - The list of availibles moves that the piece can do
      */
+    @Override
     public LinkedList<Position> getLegalMoves() {
+        Board board = Board.getInstance();
         if (this.legalMoves == null) {
+            int positionY = this.position.getY() + 1;
             LinkedList<Position> legalMoveList = super.getLegalMoves();
             for (int i = this.position.getX() + 1; i < 8; i++) {
-                this.legalMoves.add(new Position(this.position.getX() + i, this.position.getY() + i));
+                Position nextLegalPosition = new Position(i, positionY++);
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
+            }
+
+            positionY = this.position.getY();
+            for (int i = this.position.getX() + 1; i < 8; i++) {
+                Position nextLegalPosition = new Position(i, positionY--);
+                Piece piece = board.getPiece(nextLegalPosition);
+                if (piece.getColor() == this.getColor())
+                    break;
+                if (piece.getColor() != ColorEnum.NONE) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
             }
 
             for (int i = this.position.getX() - 1; i >= 0; i--) {
-                this.legalMoves.add(new Position(this.position.getX() - i, this.position.getY() + i));
+                Position nextLegalPosition = new Position(i, positionY--);
+                Piece piece = board.getPiece(nextLegalPosition);
+                if (piece.getColor() == this.getColor())
+                    break;
+                if (piece.getColor() != ColorEnum.NONE) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
             }
 
-            for (int i = this.position.getY() + 1; i < 8; i++) {
-                this.legalMoves.add(new Position(this.position.getX() - i, this.position.getX() - i));
-            }
-
-            for (int i = this.position.getY() - 1; i >= 0; i--) {
-                this.legalMoves.add(new Position(this.position.getX() + i, this.position.getY() - i));
+            for (int i = this.position.getX() - 1; i >= 0; i--) {
+                Position nextLegalPosition = new Position(i, positionY++);
+                Piece piece = board.getPiece(nextLegalPosition);
+                if (piece.getColor() == this.getColor())
+                    break;
+                if (piece.getColor() != ColorEnum.NONE) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
             }
         }
         return this.legalMoves;
@@ -71,7 +109,7 @@ public class Queen extends Rook {
      */
     @Override
     public boolean isLegalMove(Position p) {
-        List<Position> moves = this.getLegalMoves();
+        LinkedList<Position> moves = this.getLegalMoves();
         return (moves.contains(p)) ? true : false;
     }
 
