@@ -3,7 +3,8 @@
  * @author David Hernández Uriostegui
  */
 package shapesSVG;
-public class Circulo extends Figura {
+
+public class Circulo extends Shape {
     private Vector2 a;
     private double radio;
 
@@ -51,16 +52,18 @@ public class Circulo extends Figura {
         Vector2 v1 = new Vector2(100.0, 100.0);
         this.a = v1;
         this.radio = 50;
-    }
-    
-    @Override
-    public double calculaArea(){
-        double area = (this.area * this.area) * Math.PI;
-        return area; 
+        this.area = calculaArea();
+        this.perimetro = calculaPerimetro();
     }
 
     @Override
-    public double calculaPerimetro(){
+    public double calculaArea() {
+        double area = (this.radio * this.radio) * Math.PI;
+        return area;
+    }
+
+    @Override
+    public double calculaPerimetro() {
         double per = (2 * this.radio) * Math.PI;
         return per;
     }
@@ -110,7 +113,8 @@ public class Circulo extends Figura {
      */
     @Override
     public String toString() {
-        String cir = "El circulo tiene centro en: " + a + " y tiene radio de: " + radio;
+        String cir = "El circulo tiene centro en: " + this.a + " y tiene radio de: " + this.radio + "\n"
+                + super.toString();
         return cir;
     }
 
@@ -123,6 +127,8 @@ public class Circulo extends Figura {
      */
     @Override
     public boolean equals(Object v) {
+        if (!(v instanceof Circulo))
+            return false;
         Circulo z = (Circulo) v;
         return a.equals(z.getA()) && radio == z.getRadio();
     }

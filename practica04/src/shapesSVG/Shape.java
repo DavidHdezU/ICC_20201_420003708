@@ -1,7 +1,7 @@
 package shapesSVG;
 
 /**
- * Clase abstracta Shape que sirve para crear otras figuras figuras
+ * Clase abstracta Figura que sirve para crear otras figuras figuras
  **/
 
 public abstract class Shape implements Comparable<Shape> {
@@ -10,25 +10,28 @@ public abstract class Shape implements Comparable<Shape> {
     protected double perimetro;
 
     /**
-     * Cosntructor de Shape
+     * Cosntructor de figura
      */
     public Shape() {
     }
 
     /**
      * Metedo abstacto que permite calcular el area de una figura
+     * 
      * @return double el area de la fugura
      */
     abstract public double calculaArea();
 
     /**
      * Metodo abstracto para calcular el permitetro de una figura
+     * 
      * @return double - el perimetro de la figura
      */
     abstract public double calculaPerimetro();
 
     /**
      * Metodo abstracto de el SVG de una figura
+     * 
      * @return
      */
     abstract public String toSVG();
@@ -49,19 +52,22 @@ public abstract class Shape implements Comparable<Shape> {
 
     /**
      * Método equals para comparar figuras a partir de su área y perímetro
+     * 
      * @param : Object o
      **/
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Shape))
             return false;
-        Shape f = (Shape)o;
+        @SuppressWarnings("unchecked")
+        Shape f = (Shape) o;
         return (f.calculaArea() == this.area) && (f.calculaPerimetro() == this.perimetro);
     }
 
     /**
-     * Método toString de una figura
-     * @return String - Representción en cadenas de la figura
+     * Método toString de la clase Figura
+     * 
+     * @return String
      **/
     @Override
     public String toString() {
@@ -69,13 +75,19 @@ public abstract class Shape implements Comparable<Shape> {
     }
 
     /**
-     * Getters de la clase shape
-            @Override
+     * Getter del area de una figura
+     * 
+     * @return double - el area
      */
     public double getArea() {
         return this.area;
     }
 
+    /**
+     * Getter del permitro de una figura
+     * 
+     * @return double - el permetro
+     */
     public double getPerimetro() {
         return this.perimetro;
     }

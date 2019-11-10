@@ -3,19 +3,15 @@
  * @author David Hernández Uriostegui
  */
 package shapesSVG;
-public class Triangulo{
+public class Triangulo extends Shape{
     private Vector2 a;
     private Vector2 b;
     private Vector2 c;
-    private double perimetro;
-    private double area;
      /**
      * Parametros de la clase Triángulo
      * @param a - El punto a partir del cual se crea el triángulo
      * @param b - El punto b partir del cual se crea el triángulo
      * @param a - El punto c partir del cual se crea el triángulo
-     * @param area - El area del rectangulo
-     * @param perimetro - El perimetro del rectangulo
      */
 
      /**
@@ -25,14 +21,12 @@ public class Triangulo{
       * @param c - Punto c
       */
     public Triangulo(Vector2 a, Vector2 b, Vector2 c){
+        super();
         this.a = a;
         this.b = b;
         this.c = c;
-        double base = a.distancia(b);
-        Vector2 pMedio = new Vector2((a.getX() + b.getX())/2, (a.getY() + b.getY())/2);
-        double altura = pMedio.distancia(c);
-        this.perimetro = a.distancia(b) + b.distancia(c) + c.distancia(a);
-        this.area = ((base * altura)/2);
+        this.area = calculaArea();
+        this.perimetro = calculaPerimetro();
     }
     /**
      * Constructor que pide la coordenada en x y en y de cada punto
@@ -50,11 +44,8 @@ public class Triangulo{
         this.a = v1;
         this.b = v2;
         this.c = v3;  
-        double base = a.distancia(b);
-        Vector2 pMedio = new Vector2((x1 + x2)/2, (y1 + y2)/2);
-        double altura = pMedio.distancia(c);
-        this.perimetro = a.distancia(b) + b.distancia(c) + c.distancia(a);
-        this.area = ((base * altura)/2);
+        this.area = calculaArea();
+        this.perimetro = calculaPerimetro();
      }
      /**
       * Constructor que no recibe valores, y asigna al punto a en (100, 100), al punto b en (200, 100) y al punto c en (150, 50)
@@ -66,30 +57,43 @@ public class Triangulo{
          this.a = v1;
          this.b = v2;
          this.c = v3;
-        double base = a.distancia(b);
-        Vector2 pMedio = new Vector2((100 + 200)/2, (100 + 100)/2);
-        double altura = pMedio.distancia(c);
-        this.perimetro = a.distancia(b) + b.distancia(c) + c.distancia(a);
-        this.area = ((base * altura)/2);
-     }
+         this.area = calculaArea();
+         this.perimetro = calculaPerimetro();
+        }
+
+        @Override
+        public double calculaArea(){
+            double base = a.distancia(b);
+            Vector2 pMedio = new Vector2(((a.getX() + b.getX())/2), ((a.getY() + b.getY())/2));
+            double altura = pMedio.distancia(c);
+            double area = ((base * altura)/2);
+            return area;
+        }
+
+        @Override
+        public double calculaPerimetro(){
+            double per = a.distancia(b) + b.distancia(c) + c.distancia(a);
+            return per;
+        }
      /**
       * Creación de setters
       */
     public void setA(Vector2 a){
         this.a = a;
+        this.perimetro = calculaPerimetro();
+
     }
     public void setB(Vector2 b){
         this.b = b;
+        this.perimetro = calculaPerimetro();
+
     }
     public void setC(Vector2 c){
         this.c = c;
+        this.perimetro = calculaPerimetro();
+
     }
-    public void setPerimetro(double perimetro){
-        this.perimetro = perimetro;
-    }
-    public void setArea(double area){
-        this.area = area;
-    }
+    
     /**
      * Creación de getters
      */
@@ -102,16 +106,11 @@ public class Triangulo{
     public Vector2 getC(){
         return this.c;
     }
-    public double getPerimetro(){
-        return this.perimetro;
-    }
-    public double getArea(){
-        return this.area;
-    }
     /**
      * Metodo que permite que nuestro triángulo sea representado gráficamente, regresa una cadena que representa la represetación del triángulo en SVG
      * @return String - La representación del triángulo en SVG
      */
+    @Override
     public String toSVG(){
         String aux = "<polyline points= '"+Double.toString(this.a.getX())+" "+Double.toString(this.a.getY())+" "+Double.toString(this.b.getX())+" "+Double.toString(this.b.getY())+" "+Double.toString(c.getX())+" "+Double.toString(c.getY())+"' stroke='"+"red"+"' fill='"+"orange"+"' stroke-width='"+"5.0"+"' />";
         return aux;
@@ -122,7 +121,7 @@ public class Triangulo{
      */
     @Override
     public String toString() {
-        String trian = "El triangulo tienes su punto a en: " + a + " , tiene su punto b en: " + b + " y su punto c en: " + c;
+        String trian = "El triangulo tienes su punto a en: " + a + " , tiene su punto b en: " + b + " y su punto c en: " + c + "\n" + super.toString();
         return trian;
     }
     /**
@@ -132,9 +131,19 @@ public class Triangulo{
      */
     @Override
     public boolean equals(Object v) {
+    if(!(v instanceof Triangulo))return false;
     Triangulo z = (Triangulo)v;
     return a.equals(z.getA()) && b.equals(z.getB()) && c.equals(z.getC()); 
-}
+    }
+    /**
+     * Metodo que transforma a traves de una interfaz funcional
+     * @param x - Transformacion
+     */
+    public void transform(Transform x){
+        this.a = x.transform(this.a);
+        this.b = x.transform(this.b);
+        this.c = x.transform(this.c);
+  }
 
 }
 

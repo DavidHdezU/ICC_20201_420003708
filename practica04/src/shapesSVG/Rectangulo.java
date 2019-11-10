@@ -1,21 +1,18 @@
+
 /**
  * Clase que modela un rectángulo a partir de un punto, un ancho y un alto
  * @author David Hernández Uriostegui
  */
 package shapesSVG;
-public class Rectangulo{
+public class Rectangulo extends Shape{
     private Vector2 a;
     private double ancho;
     private double alto;
-    private double area;
-    private double perimetro;
     /**
      * Parametros de la clase Rectangulo
      * @param a - El punto a partir del cual se crea el rectángulo
      * @param ancho - El valor del ancho del rectángulo
      * @param alto - El valor del alto del rectángulo
-     * @param area - El area del rectangulo
-     * @param perimetro - El perimetro del rectangulo
      */
 
      /**
@@ -25,11 +22,12 @@ public class Rectangulo{
       * @param alto - Alto del rectangulo   
       */
     public Rectangulo(Vector2 a, double ancho, double alto){
+        super();
         this.a = a;
         this.ancho = ancho;
         this.alto = alto;
-        this.perimetro = ((this.alto * 2) + (this.ancho * 2));
-        this.area = (this.alto * this.ancho);
+        this.perimetro = calculaPerimetro();
+        this.area = calculaArea();
     }
     /**
      * Constructor que nos pide que ingresemos la coordenada en x y en y del punto, y un valor para el alto y ancho
@@ -57,6 +55,18 @@ public class Rectangulo{
         this.perimetro = ((this.alto * 2) + (this.ancho * 2));
         this.area = (this.alto * this.ancho);
     }
+    
+    @Override
+    public double calculaArea(){
+        double area = this.alto * this.ancho;
+        return area;
+    }
+
+    @Override
+    public double calculaPerimetro(){
+        double per = (2 * this.alto) + (2 * this.alto);
+        return per;
+    }
     /**
      * Creación de setters
      */
@@ -65,15 +75,13 @@ public class Rectangulo{
     }
     public void setAncho(double ancho){
         this.ancho = ancho;
+        this.area = calculaArea();
+        this.perimetro = calculaPerimetro();
     }
     public void setAlto(double alto){
         this.alto = alto;
-    }
-    public void setPerimetro(double perimetro){
-        this.perimetro = perimetro;
-    }
-    public void setArea(double area){
-        this.area = area;
+        this.area = calculaArea();
+        this.perimetro = calculaPerimetro();
     }
     /**
      * Creación de getters
@@ -87,16 +95,11 @@ public class Rectangulo{
     public double getAlto(){
         return this.alto;
     }
-    public double getPerimetro(){
-        return this.perimetro;
-    }
-    public double getArea(){
-        return this.area;
-    }
     /**
      * Metodo que permite que nuestro rectángulo sea representado gráficamente, regresa una cadena que representa la represetación del rectángulo en SVG
      * @return String - La representación del rectángulo en SVG
      */
+     @Override
      public String toSVG(){
         String rec = "<rect x='"+Double.toString(this.a.getX())+"' y='"+Double.toString(this.a.getY())+"' width='"+Double.toString(ancho)+"' height='"+Double.toString(alto)+"' fill='"+"orange"+"' stroke='"+"green"+"' stroke-width='"+"2.0"+"'/>";
         return rec;
@@ -107,7 +110,7 @@ public class Rectangulo{
      */
     @Override
     public String toString() {
-        String rect = "El rectangulo tiene su vector" + a + ", tienes un alto de: " + alto + " y tiene un ancho de: " + ancho;
+        String rect = "El rectangulo tiene su vector" + a + ", tienes un alto de: " + alto + " y tiene un ancho de: " + ancho + "\n" + super.toString();
         return rect;
     }
      /**
@@ -117,8 +120,9 @@ public class Rectangulo{
      */
     @Override
     public boolean equals(Object v) {
+        if(!(v instanceof Rectangulo))return false;
         Rectangulo z = (Rectangulo)v;
-        return a.equals(z.getA()) && alto == z.getAlto() && ancho == z.getAncho();
+        return a.equals(z.getA()) && this.alto == z.getAlto() && this.ancho == z.getAncho();
     }
 
 }
