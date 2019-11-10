@@ -1,4 +1,5 @@
 package src;
+import java.util.Iterator;
 
 /**
  * Clase que modela una matriz a partir de un arreglo bidemensional y permite
@@ -6,10 +7,32 @@ package src;
  * 
  * @author David Hernández Uriostegui
  */
-public class Matrix {
+public class Matrix implements Iterable<Double>{
     private double[][] matriz;
+    /**
+     * @param double[][] - arreglo bidimensional
+     */
+    private class Iterador implements Iterator<Double>{
 
-    // Construye una matriz vacia de n por m
+        int indexColumna = -1;
+        int indexFila = 0;
+  
+        public Double next(){
+          if(indexColumna<Matrix.this.matriz[0].length) 
+                indexColumna++;
+          if(indexColumna == Matrix.this.matriz[0].length){
+            indexColumna = 0;
+            indexFila++;
+          }
+          return Matrix.this.matriz[this.indexFila][this.indexColumna];
+        }
+        public boolean hasNext(){
+          if(indexFila >= Matrix.this.matriz.length || (indexColumna == Matrix.this.matriz.length-1 && indiexFila == Matrix.this.matriz[0].length-2)) {
+              return false;
+            }
+          return true;
+        }
+    }
     /**
      * Constructor que produce una matriz de nxm vacia
      * 
@@ -177,6 +200,24 @@ public class Matrix {
      */
     @Override
     public boolean equals(Object o) {
+        private class Iterador implements Iterator<Double>{
+            int indiceColumna = -1;
+            int indiceFila = 0;
+
+            public Double next(){
+            if(indiceColumna<Matrix.this.matriz[0].length) indiceColumna++;
+            if(indiceColumna == Matrix.this.matriz[0].length){
+            indiceColumna = 0;
+            indiceFila++;
+            }
+            return Matrix.this.matriz[this.indiceFila][this.indiceColumna];
+        }
+
+        public boolean hasNext(){
+            if(indiceFila >= Matrix.this.matriz.length || (indiceColumna == Matrix.this.matriz.length-1 && indiceFila == Matrix.this.matriz[0].length-2)) return false;
+            return true;
+        }
+    }
         Matrix z = (Matrix) o;
         if (z.matriz.length != matriz.length || z.matriz[0].length != matriz[0].length)
             return false;
