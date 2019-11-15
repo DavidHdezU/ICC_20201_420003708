@@ -43,6 +43,11 @@ public class Board {
         /** POSICIONES INICIALES DE LAS REINAS */
         this.matrix[3][0] = new Queen(new Position(3, 0), ColorEnum.BLACK);
         this.matrix[3][7] = new Queen(new Position(3, 7), ColorEnum.WHITE);
+        /** POSICIONES INCIALES DE LOS CABALLOS */
+        this.matrix[2][0] = new Horse(new Position(2, 0), ColorEnum.BLACK);
+        this.matrix[5][0] = new Horse(new Position(5, 0), ColorEnum.BLACK);
+        this.matrix[2][7] = new Horse(new Position(2, 7), ColorEnum.WHITE);
+        this.matrix[5][7] = new Horse(new Position(5, 7), ColorEnum.WHITE);
 
     }
 
