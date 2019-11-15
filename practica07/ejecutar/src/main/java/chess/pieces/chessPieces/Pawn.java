@@ -19,25 +19,7 @@ public class Pawn extends Piece {
      */
     public Pawn(Position p, ColorEnum color) {
         super(p, color);
-        this.type = PiecesTypeEnum.ROOK;
-    }
-
-    /**
-     * Position getter
-     * 
-     * @return Position - The position where the piece is
-     */
-    public Position getPosition() {
-        return this.position;
-    }
-
-    /**
-     * Color getter
-     * 
-     * @return - The piece color
-     */
-    public ColorEnum getColor() {
-        return this.color;
+        this.type = PiecesTypeEnum.PAWN;
     }
 
     /**
@@ -46,41 +28,23 @@ public class Pawn extends Piece {
      * @return LinkedList - The list of availibles moves that the piece can do
      */
     @Override
-    public LinkedList<Position> getLegalMoves() {
+    public List<Position> getLegalMoves() {
         if (this.legalMoves == null) {
             this.legalMoves = new LinkedList<Position>();
             for (int i = this.position.getY() + 1; i < this.position.getY() + 2; i++) {
-                this.legalMoves.add(new Position(this.position.getX(), i));
+                Position nextLegalPosition = new Position(this.position.getX(), i);
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
             }
         }
         return this.legalMoves;
-    }
-
-    /**
-     * Method that makes the piece move to a new position
-     * 
-     * @param p - The position the player wants to move to
-     */
-    @Override
-    public void moveTo(Position p) {
-        if (isLegalMove(p)) {
-            this.position = p;
-            this.legalMoves = null;
-            return;
-        } else
-            return;
-    }
-
-    /**
-     * Method that verifies if the move is legal
-     * 
-     * @param p - The position that the player wants to move to
-     * @return boolean - true in case that the move is legal, false in other case
-     */
-    @Override
-    public boolean isLegalMove(Position p) {
-        List<Position> moves = this.getLegalMoves();
-        return (moves.contains(p)) ? true : false;
     }
 
     /**

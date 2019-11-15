@@ -1,5 +1,5 @@
 package chess.pieces;
 
 public enum PiecesTypeEnum {
-    ROOK, QUEEN, EMPTY
+    ROOK, QUEEN, PAWN, HORSE, BISHOP, KING, EMPTY
 }

@@ -14,62 +14,59 @@ public class Rook extends Piece {
         this.type = PiecesTypeEnum.ROOK;
     }
 
-    @Override
-    public LinkedList<Position> getLegalMoves() {
+    public List<Position> getLegalMoves() {
         Board board = Board.getInstance();
-        if (this.legalMoves == null) {
-            this.legalMoves = new LinkedList<Position>();
-            for (int i = this.position.getX() + 1; i < 8; i++) {
-                Position nextLegalPosition = new Position(i, this.position.getY());
-                if (this.isAppendable(nextLegalPosition) == -1)
-                    break;
-                if (this.isAppendable(nextLegalPosition) == 0) {
-                    this.legalMoves.add(nextLegalPosition);
-                    break;
-                }
+        this.legalMoves = new LinkedList<Position>();
+        for (int i = this.position.getX() + 1; i < 8; i++) {
+            Position nextLegalPosition = new Position(i, this.position.getY());
+            if (this.isAppendable(nextLegalPosition) == -1)
+                break;
+            if (this.isAppendable(nextLegalPosition) == 0) {
                 this.legalMoves.add(nextLegalPosition);
-
+                break;
             }
-
-            for (int i = this.position.getX() - 1; i >= 0; i--) {
-                Position nextLegalPosition = new Position(i, this.position.getY());
-                Piece piece = board.getPiece(nextLegalPosition);
-                if (piece.getColor() == this.getColor())
-                    break;
-                if (piece.getColor() != ColorEnum.NONE) {
-                    this.legalMoves.add(nextLegalPosition);
-                    break;
-                }
-                this.legalMoves.add(nextLegalPosition);
-
-            }
-
-            for (int i = this.position.getY() + 1; i < 8; i++) {
-                Position nextLegalPosition = new Position(this.position.getX(), i);
-                Piece piece = board.getPiece(nextLegalPosition);
-                if (piece.getColor() == this.getColor())
-                    break;
-                if (piece.getColor() != ColorEnum.NONE) {
-                    this.legalMoves.add(nextLegalPosition);
-                    break;
-                }
-                this.legalMoves.add(nextLegalPosition);
-
-            }
-
-            for (int i = this.position.getY() - 1; i >= 0; i--) {
-                Position nextLegalPosition = new Position(this.position.getX(), i);
-                Piece piece = board.getPiece(nextLegalPosition);
-                if (piece.getColor() == this.getColor())
-                    break;
-                if (piece.getColor() != ColorEnum.NONE) {
-                    this.legalMoves.add(nextLegalPosition);
-                    break;
-                }
-                this.legalMoves.add(nextLegalPosition);
-
-            }
+            this.legalMoves.add(nextLegalPosition);
         }
+
+        for (int i = this.position.getX() - 1; i >= 0; i--) {
+            Position nextLegalPosition = new Position(i, this.position.getY());
+            Piece piece = board.getPiece(nextLegalPosition);
+            if (piece.getColor() == this.getColor())
+                break;
+            if (piece.getColor() != ColorEnum.NONE) {
+                this.legalMoves.add(nextLegalPosition);
+                break;
+            }
+            this.legalMoves.add(nextLegalPosition);
+
+        }
+
+        for (int i = this.position.getY() + 1; i < 8; i++) {
+            Position nextLegalPosition = new Position(this.position.getX(), i);
+            Piece piece = board.getPiece(nextLegalPosition);
+            if (piece.getColor() == this.getColor())
+                break;
+            if (piece.getColor() != ColorEnum.NONE) {
+                this.legalMoves.add(nextLegalPosition);
+                break;
+            }
+            this.legalMoves.add(nextLegalPosition);
+
+        }
+
+        for (int i = this.position.getY() - 1; i >= 0; i--) {
+            Position nextLegalPosition = new Position(this.position.getX(), i);
+            Piece piece = board.getPiece(nextLegalPosition);
+            if (piece.getColor() == this.getColor())
+                break;
+            if (piece.getColor() != ColorEnum.NONE) {
+                this.legalMoves.add(nextLegalPosition);
+                break;
+            }
+            this.legalMoves.add(nextLegalPosition);
+
+        }
+
         return this.legalMoves;
     }
 

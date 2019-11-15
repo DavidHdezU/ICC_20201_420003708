@@ -12,10 +12,10 @@ import chess.pieces.chessPieces.Rook;
 public class Game {
 
     public static void main(String[] args) {
-        Rook t = new Rook(new Position(4, 4), ColorEnum.BLACK);
+        Rook t = new Rook(new Position(0, 0), ColorEnum.BLACK);
         System.out.println(t.getLegalMoves());
         System.out.println("---------------------------------------------------ROOK MOVES");
-        Queen x = new Queen(new Position(4, 4), ColorEnum.BLACK);
+        Queen x = new Queen(new Position(7, 4), ColorEnum.BLACK);
         System.out.println(x.getLegalMoves());
         System.out.println("---------------------------------------------------QUEEN MOVES");
         //

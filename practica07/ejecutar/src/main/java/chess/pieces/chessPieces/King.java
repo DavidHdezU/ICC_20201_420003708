@@ -18,7 +18,7 @@ public class King extends Pawn {
      */
     public King(Position p, ColorEnum color) {
         super(p, color);
-        this.type = PiecesTypeEnum.QUEEN;
+        this.type = PiecesTypeEnum.KING;
     }
 
     /**
@@ -26,27 +26,88 @@ public class King extends Pawn {
      * 
      * @return LinkedList - The list of availibles moves that the piece can do
      */
-    public LinkedList<Position> getLegalMoves() {
+    public List<Position> getLegalMoves() {
         if (this.legalMoves == null) {
-            List<Position> legalMoveList = super.getLegalMoves();
+            List<Position> legalMoves = super.getLegalMoves();
             for (int i = this.position.getX() - 1; i > this.position.getX() - 2; i--) {
-                this.legalMoves.add(new Position(this.position.getX(), i));
+                Position nextLegalPosition = new Position(this.position.getX(), i);
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                legalMoves.add(nextLegalPosition);
+            }
+
+            for (int i = this.position.getX() + 1; i < this.position.getX() + 2; i++) {
+                Position nextLegalPosition = new Position(i, this.position.getY() + 1);
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                legalMoves.add(nextLegalPosition);
             }
             for (int i = this.position.getX() + 1; i < this.position.getX() + 2; i++) {
-                this.legalMoves.add(new Position(i, this.position.getY() + 1));
-            }
-            for (int i = this.position.getX() + 1; i < this.position.getX() + 2; i++) {
-                this.legalMoves.add(new Position(i, this.position.getY() - 1));
+                Position nextLegalPosition = new Position(i, this.position.getY() - 1);
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                legalMoves.add(nextLegalPosition);
             }
             for (int i = this.position.getY() - 1; i > this.position.getY() - 2; i--) {
-                this.legalMoves.add(new Position(this.position.getX() - 1, i));
+                Position nextLegalPosition = new Position(this.position.getX() - 1, i);
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                legalMoves.add(nextLegalPosition);
             }
             for (int i = this.position.getY() + 1; i < this.position.getY() + 2; i++) {
-                this.legalMoves.add(new Position(this.position.getX() - 1, i));
+                Position nextLegalPosition = new Position(this.position.getX() - 1, i);
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                legalMoves.add(nextLegalPosition);
             }
 
         }
-        return this.legalMoves;
+        return legalMoves;
     }
 
     /**

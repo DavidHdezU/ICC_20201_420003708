@@ -19,25 +19,7 @@ public class Bishop extends Piece {
      */
     public Bishop(Position p, ColorEnum color) {
         super(p, color);
-        this.type = PiecesTypeEnum.ROOK;
-    }
-
-    /**
-     * Position getter
-     * 
-     * @return Position - The position where the piece is
-     */
-    public Position getPosition() {
-        return this.position;
-    }
-
-    /**
-     * Color getter
-     * 
-     * @return - The piece color
-     */
-    public ColorEnum getColor() {
-        return this.color;
+        this.type = PiecesTypeEnum.BISHOP;
     }
 
     /**
@@ -45,53 +27,97 @@ public class Bishop extends Piece {
      * 
      * @return LinkedList - The list of availibles moves that the piece can do
      */
-    public LinkedList<Position> getLegalMoves() {
+    public List<Position> getLegalMoves() {
         if (this.legalMoves == null) {
             this.legalMoves = new LinkedList<Position>();
+            int positionY = this.position.getY() + 1;
             for (int i = this.position.getX() + 1; i < 8; i++) {
-                this.legalMoves.add(new Position(this.position.getX() + i, this.position.getY() + i));
+                Position nextLegalPosition = new Position(i, positionY++);
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
+            }
+
+            for (int i = this.position.getX() + 1; i < 8; i++) {
+                Position nextLegalPosition = new Position(i, positionY--);
+                Piece piece = board.getPiece(nextLegalPosition);
+                if (piece.getColor() == this.getColor())
+                    break;
+                if (piece.getColor() != ColorEnum.NONE) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
+            }
+
+            positionY = this.position.getY();
+            for (int i = this.position.getX() - 1; i >= 0; i--) {
+                Position nextLegalPosition = new Position(i, positionY--);
+                Piece piece = board.getPiece(nextLegalPosition);
+                if (piece.getColor() == this.getColor())
+                    break;
+                if (piece.getColor() != ColorEnum.NONE) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
             }
 
             for (int i = this.position.getX() - 1; i >= 0; i--) {
-                this.legalMoves.add(new Position(this.position.getX() - i, this.position.getY() + i));
-            }
-
-            for (int i = this.position.getY() + 1; i < 8; i++) {
-                this.legalMoves.add(new Position(this.position.getX() - i, this.position.getX() - i));
-            }
-
-            for (int i = this.position.getY() - 1; i >= 0; i--) {
-                this.legalMoves.add(new Position(this.position.getX() + i, this.position.getY() - i));
+                Position nextLegalPosition = new Position(i, positionY++);
+                Piece piece = board.getPiece(nextLegalPosition);
+                if (piece.getColor() == this.getColor())
+                    break;
+                if (piece.getColor() != ColorEnum.NONE) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (!this.isLegalMove(nextLegalPosition))
+                    break;
+                if (this.isAppendable(nextLegalPosition) == -1)
+                    break;
+                if (this.isAppendable(nextLegalPosition) == 0) {
+                    this.legalMoves.add(nextLegalPosition);
+                    break;
+                }
+                if (nextLegalPosition.isOutOfBoard(7) == true) {
+                    break;
+                }
+                this.legalMoves.add(nextLegalPosition);
             }
         }
         return this.legalMoves;
-    }
-
-    /**
-     * Method that makes the piece move to a new position
-     * 
-     * @param p - The position the player wants to move to
-     */
-    @Override
-    public void moveTo(Position p) {
-        if (isLegalMove(p)) {
-            this.position = p;
-            this.legalMoves = null;
-            return;
-        } else
-            return;
-    }
-
-    /**
-     * Method that verifies if the move is legal
-     * 
-     * @param p - The position that the player wants to move to
-     * @return boolean - true in case that the move is legal, false in other case
-     */
-    @Override
-    public boolean isLegalMove(Position p) {
-        List<Position> moves = this.getLegalMoves();
-        return (moves.contains(p)) ? true : false;
     }
 
     /**

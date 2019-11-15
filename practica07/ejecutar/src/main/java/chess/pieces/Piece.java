@@ -1,12 +1,12 @@
 package chess.pieces;
 
+import java.util.List;
 import chess.items.Board;
 import chess.items.Position;
-import java.util.LinkedList;;
 
 public abstract class Piece {
     protected Position position;
-    protected LinkedList<Position> legalMoves = null;
+    protected List<Position> legalMoves = null;
     protected PiecesTypeEnum type;
     protected ColorEnum color;
     protected Board board;
@@ -47,10 +47,10 @@ public abstract class Piece {
             return;
     }
 
-    public abstract LinkedList<Position> getLegalMoves();
+    public abstract List<Position> getLegalMoves();
 
     public boolean isLegalMove(Position p) {
-        LinkedList<Position> moves = this.getLegalMoves();
+        List<Position> moves = this.getLegalMoves();
         return (moves.contains(p)) ? true : false;
     }
 
@@ -60,6 +60,13 @@ public abstract class Piece {
     }
 
     @Override
-    public abstract boolean equals(Object obj);
-
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Piece))
+            return false;
+        Piece p = (Piece) obj;
+        if (p.getType().equals(this.type) && p.getColor().equals(this.getColor())
+                && p.getPosition().equals(this.position))
+            return true;
+        return false;
+    }
 }

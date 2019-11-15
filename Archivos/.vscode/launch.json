@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ArchivosGui",
+            "request": "launch",
+            "mainClass": "src.GUI.ArchivosGui",
+            "projectName": "Archivos_17ce9631"
+        }
+    ]
+}

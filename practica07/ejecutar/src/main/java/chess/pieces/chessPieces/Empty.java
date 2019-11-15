@@ -20,7 +20,7 @@ public class Empty extends Piece {
     }
 
     @Override
-    public LinkedList<Position> getLegalMoves() {
+    public List<Position> getLegalMoves() {
         return new LinkedList<>();
     }
 
