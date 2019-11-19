@@ -1,0 +1,1 @@
+PARA EJECUTAR COLOCARSE EN EL CARPETA practica09/ y en un terminal poner "gradle run"
