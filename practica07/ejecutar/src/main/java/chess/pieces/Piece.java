@@ -59,6 +59,10 @@ public abstract class Piece {
         return this.type.toString();
     }
 
+    public boolean isInside(Position p) {
+        return (p.getX() < 8 && p.getX() > -1 && p.getY() < 8 && p.getY() > -1);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Piece))
